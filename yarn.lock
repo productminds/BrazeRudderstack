@@ -859,6 +859,11 @@
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
 
+"@braze/react-native-sdk@^12.2.0":
+  version "12.2.0"
+  resolved "https://registry.npmjs.org/@braze/react-native-sdk/-/react-native-sdk-12.2.0.tgz"
+  integrity sha512-SgaiET7vU2Dz36a9uDBuATiHETzAyiw84X6h7Ya3NQKOlp808ljCk1T/buZSWnIn4UT8J7OGCOxWra4vidN9pw==
+
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.4.0"
   dependencies:
