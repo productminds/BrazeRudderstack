@@ -5,7 +5,9 @@
  * @format
  */
 
-import React from 'react';
+import braze from '@rudderstack/rudder-integration-braze-react-native';
+import rudderClient, { RUDDER_LOG_LEVEL } from '@rudderstack/rudder-sdk-react-native';
+import React, { useCallback, useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -55,8 +57,39 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
+const config = {
+  dataPlaneUrl: 'https://productmininp.dataplane.rudderstack.com',
+  trackAppLifecycleEvents: true,
+  withFactories: [braze],
+  sessionTImeout: 5 * 1000,
+  logLevel: RUDDER_LOG_LEVEL.DEBUG,
+  autoSessionTracking: true, // Set to false to disable automatic session tracking
+};
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const initRudder = useCallback(async () => {
+    // Next, use the below snippet to initialise the SDK.
+    await rudderClient.setup('2lzZyfQtVjjSXMisgZTxsiATCGC', config);
+
+    await rudderClient.screen('Home', null, {});
+
+    await rudderClient.identify(
+      'new-impl-01',
+      {
+        email: 'testing@productminds.com',
+        firstname: 'Antonny',
+        lastname: 'Santos',
+      },
+      {},
+    );
+    await rudderClient.track('Testing Event');
+  }, []);
+
+  useEffect(() => {
+    initRudder();
+  }, [initRudder]);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "573250047049",
+    "project_id": "rudderbraze",
+    "storage_bucket": "rudderbraze.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573250047049:android:5c2fb41621900c0e40c398",
+        "android_client_info": {
+          "package_name": "com.brazerudderstack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTWy0j_jGY3dwIHlrgF7FFhYo0VeuWLzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
