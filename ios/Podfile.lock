@@ -1,5 +1,15 @@
 PODS:
   - boost (1.84.0)
+  - braze-react-native-sdk (8.3.0):
+    - BrazeKit (~> 7.5.0)
+    - BrazeLocation (~> 7.5.0)
+    - BrazeUI (~> 7.5.0)
+    - React-Core
+  - BrazeKit (7.5.0)
+  - BrazeLocation (7.5.0):
+    - BrazeKit (= 7.5.0)
+  - BrazeUI (7.5.0):
+    - BrazeKit (= 7.5.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.75.3)
   - fmt (9.1.0)
@@ -7,6 +17,9 @@ PODS:
   - hermes-engine (0.75.3):
     - hermes-engine/Pre-built (= 0.75.3)
   - hermes-engine/Pre-built (0.75.3)
+  - MetricsReporter (2.0.0):
+    - RSCrashReporter (= 1.0.1)
+    - RudderKit (= 1.4.0)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1497,11 +1510,29 @@ PODS:
     - React-logger (= 0.75.3)
     - React-perflogger (= 0.75.3)
     - React-utils (= 0.75.3)
+  - RNRudderSdk (1.14.0):
+    - React
+    - Rudder (< 2.0.0, >= 1.26.3)
+  - RSCrashReporter (1.0.1)
+  - Rudder (1.29.0):
+    - MetricsReporter (= 2.0.0)
+  - Rudder-Braze (2.0.0):
+    - BrazeKit (~> 7.5.0)
+    - Rudder (~> 1.24)
+  - rudder-integration-braze-react-native (1.3.0):
+    - React
+    - RNRudderSdk
+    - Rudder-Braze (~> 2.0)
+  - RudderKit (1.4.0)
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - "braze-react-native-sdk (from `../node_modules/@braze/react-native-sdk`)"
+  - BrazeKit (from `https://raw.githubusercontent.com/braze-inc/braze-swift-sdk-prebuilt-dynamic/7.5.0/BrazeKit.podspec`)
+  - BrazeLocation (from `https://raw.githubusercontent.com/braze-inc/braze-swift-sdk-prebuilt-dynamic/7.5.0/BrazeLocation.podspec`)
+  - BrazeUI (from `https://raw.githubusercontent.com/braze-inc/braze-swift-sdk-prebuilt-dynamic/7.5.0/BrazeUI.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
@@ -1564,15 +1595,30 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNRudderSdk (from `../node_modules/@rudderstack/rudder-sdk-react-native`)"
+  - "rudder-integration-braze-react-native (from `../node_modules/@rudderstack/rudder-integration-braze-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - MetricsReporter
+    - RSCrashReporter
+    - Rudder
+    - Rudder-Braze
+    - RudderKit
     - SocketRocket
 
 EXTERNAL SOURCES:
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  braze-react-native-sdk:
+    :path: "../node_modules/@braze/react-native-sdk"
+  BrazeKit:
+    :podspec: https://raw.githubusercontent.com/braze-inc/braze-swift-sdk-prebuilt-dynamic/7.5.0/BrazeKit.podspec
+  BrazeLocation:
+    :podspec: https://raw.githubusercontent.com/braze-inc/braze-swift-sdk-prebuilt-dynamic/7.5.0/BrazeLocation.podspec
+  BrazeUI:
+    :podspec: https://raw.githubusercontent.com/braze-inc/braze-swift-sdk-prebuilt-dynamic/7.5.0/BrazeUI.podspec
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -1694,16 +1740,25 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNRudderSdk:
+    :path: "../node_modules/@rudderstack/rudder-sdk-react-native"
+  rudder-integration-braze-react-native:
+    :path: "../node_modules/@rudderstack/rudder-integration-braze-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
+  braze-react-native-sdk: bb9725010d4fc4adabfe1001e60d2977df2ee30e
+  BrazeKit: 25d7aafffd8dae7e7f6d222b3027992384604709
+  BrazeLocation: 6361fc0a7739a2ec930aad16aac3999d69848cb8
+  BrazeUI: 6806e3ec7cf2bdf48931253f8f04c96010044770
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 7b438dceb9f904bd85ca3c31d64cce32a035472b
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: 69ef571f3de08433d766d614c73a9838a06bf7eb
   hermes-engine: 8d2103d6c0176779aea4e25df6bb1410f9946680
+  MetricsReporter: 364b98791e868b10e9d512eb50af28d8c11e5cdb
   RCT-Folly: 4464f4d875961fce86008d45f4ecf6cef6de0740
   RCTDeprecation: 4191f6e64b72d9743f6fe1a8a16e89e868f5e9e7
   RCTRequired: 9bb589570f2bb3abc6518761e3fd1ad9b7f7f06c
@@ -1759,9 +1814,15 @@ SPEC CHECKSUMS:
   React-utils: f2afa6acd905ca2ce7bb8ffb4a22f7f8a12534e8
   ReactCodegen: ff95a93d5ab5d9b2551571886271478eaa168565
   ReactCommon: 289214026502e6a93484f4a46bcc0efa4f3f2864
+  RNRudderSdk: 9e243c47f3040a49c559f3b01186fe48e5158c01
+  RSCrashReporter: 6b8376ac729b0289ebe0908553e5f56d8171f313
+  Rudder: 7031e52a04312cbc7a70713cac25528a89e63408
+  Rudder-Braze: 906ac557204d42bfd29bbf48741d8f6beb9ca2be
+  rudder-integration-braze-react-native: 237e030490811fa7eb3192e2800feb6e6d141bca
+  RudderKit: f272f9872183946452ac94cd7bb2244a71e6ca8f
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 4ef80d96a5534f0e01b3055f17d1e19a9fc61b63
 
-PODFILE CHECKSUM: 36c0dbe4634f580dd1ea6a599bd6543516784477
+PODFILE CHECKSUM: def13e78df05e709299a89b254858592d463528e
 
 COCOAPODS: 1.15.2

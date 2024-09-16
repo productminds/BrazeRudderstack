@@ -6,10 +6,14 @@
  */
 
 import braze from '@rudderstack/rudder-integration-braze-react-native';
-import rudderClient, { RUDDER_LOG_LEVEL } from '@rudderstack/rudder-sdk-react-native';
-import React, { useCallback, useEffect } from 'react';
+import rudderClient, {
+  RUDDER_LOG_LEVEL,
+} from '@rudderstack/rudder-sdk-react-native';
+import React, {useCallback, useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -19,13 +23,8 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import { Configuration } from '@rudderstack/rudder-sdk-react-native/src/NativeBridge';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -57,12 +56,12 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
-const config = {
+const config: Configuration = {
   dataPlaneUrl: 'https://productmininp.dataplane.rudderstack.com',
   trackAppLifecycleEvents: true,
   withFactories: [braze],
-  sessionTImeout: 5 * 1000,
-  logLevel: RUDDER_LOG_LEVEL.DEBUG,
+  sessionTimeout: 5 * 1000,
+  logLevel: RUDDER_LOG_LEVEL.VERBOSE,
   autoSessionTracking: true, // Set to false to disable automatic session tracking
 };
 
@@ -71,25 +70,44 @@ function App(): React.JSX.Element {
 
   const initRudder = useCallback(async () => {
     // Next, use the below snippet to initialise the SDK.
-    await rudderClient.setup('2lzZyfQtVjjSXMisgZTxsiATCGC', config);
+    const apiKey =
+      Platform.OS === 'ios'
+        ? '2mAF1mbr4e8bhx184I5AdtUolF2'
+        : '2lzZyfQtVjjSXMisgZTxsiATCGC';
+    await rudderClient.setup(apiKey, config);
 
     await rudderClient.screen('Home', null, {});
 
     await rudderClient.identify(
-      'new-impl-01',
+      'ios-rudder-05',
       {
-        email: 'testing@productminds.com',
+        email: 'testing-ios@productminds.com',
         firstname: 'Antonny',
         lastname: 'Santos',
       },
-      {},
+      {
+        externalIds: [
+          {
+            id: 'ios-rudder-05',
+            type: 'brazeExternalId',
+          },
+        ],
+      },
     );
-    await rudderClient.track('Testing Event');
   }, []);
 
   useEffect(() => {
     initRudder();
+    // Braze.subscribeToInAppMessage(true, event => {
+    //   console.log('hi', event);
+    // });
+    // Braze.changeUser('ios-standalone-03');
   }, [initRudder]);
+
+  const logEvent = async () => {
+    await rudderClient.track('Testing Event');
+    // Braze.logCustomEvent('Testing Event');
+  };
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -113,16 +131,7 @@ function App(): React.JSX.Element {
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <Button title="Testing" onPress={logEvent} />
         </View>
       </ScrollView>
     </SafeAreaView>
